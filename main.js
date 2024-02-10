@@ -1,5 +1,5 @@
 const apiKey = "a335ea562508ddcaaec55b37898a39bd";
-const timeDif = 28800;
+const currentDate = new Date().toDateString();
 
 const fetchWeatherData = async (city, state, apiKey) => {
   try {
@@ -7,11 +7,11 @@ const fetchWeatherData = async (city, state, apiKey) => {
       `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=5&appid=${apiKey}`
     );
     const geoData = await geoRes.json();
-    const lat = geoData[0].lat;
-    const long = geoData[0].lat;
+    const lat = geoData[0].lat.toFixed(2);
+    const long = geoData[0].lon.toFixed(2);
 
     const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=33.83&lon=-118.34&tz=-08:00&units=Imperial&appid=a335ea562508ddcaaec55b37898a39bd`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&tz=-08:00&units=Imperial&appid=a335ea562508ddcaaec55b37898a39bd`
     );
     const weatherData = await weatherResponse.json();
 
@@ -21,28 +21,19 @@ const fetchWeatherData = async (city, state, apiKey) => {
     const sunsetUtc = Math.floor(weatherData.sys.sunset);
     const condition = weatherData.weather[0].main;
     const timeZoneDif = weatherData.timezone;
+    const iconCode = weatherData.weather[0].icon;
+    const icon = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
     const sunrise = convertTime(sunriseUtc, timeZoneDif);
     const sunset = convertTime(sunsetUtc, timeZoneDif);
 
-    console.log(`tempature: ${temp}°F`);
-    console.log(`wind: ${wind} MPH`);
-    console.log(`condition: ${condition}`);
-    console.log(`sunrise: ${sunrise}`);
-    console.log(`sunset: ${sunset}`);
-    return { temp, wind, condition, sunrise, sunset };
+    const loc = weatherData.name;
+
+    return { temp, wind, condition, sunrise, sunset, loc, icon };
   } catch (e) {
     console.log("there has been an error ", e);
   }
 };
-
-// fetchWeatherData().then(({ temp, wind, condition, sunrise, sunset }) => {
-//   console.log(`tempature: ${temp}°F`);
-//   console.log(`wind: ${wind} MPH`);
-//   console.log(`condition: ${condition}`);
-//   console.log(`sunrise: ${sunrise}`);
-//   console.log(`sunset: ${sunset}`);
-// });
 
 // UTC time in seconds
 const convertTime = (t, tD) => {
@@ -70,9 +61,18 @@ const convertTime = (t, tD) => {
 };
 
 const form = document.querySelector(".location");
+const weatherInfo = document.querySelector(".weatherFacts");
+const tempature = document.querySelector(".temperature");
+const place = document.querySelector(".place");
+const date = document.querySelector(".date");
+const ic = document.querySelector(".icon");
+const con = document.querySelector(".condition");
+const breeze = document.querySelector(".wind");
+const sunup = document.querySelector(".sunrise");
+const sundown = document.querySelector(".sunset");
 
 form.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent the default form submission behavior
+  e.preventDefault();
 
   const cityInput = document.querySelector(".city");
   const stateInput = document.querySelector(".state");
@@ -80,11 +80,19 @@ form.addEventListener("submit", (e) => {
   const city = cityInput.value;
   const state = stateInput.value;
 
-  fetchWeatherData(city, state, apiKey);
-  // console.log("City:", city);
-  // console.log("State:", state);
-
-  // Clear the form fields
+  fetchWeatherData(city, state, apiKey).then(
+    ({ temp, wind, condition, sunrise, sunset, loc, icon }) => {
+      const img = document.createElement("img");
+      img.src = icon;
+      tempature.innerHTML = `${temp}°`;
+      place.innerHTML = loc;
+      ic.innerHTML = `<img src="${icon}" alt="">`;
+      con.innerHTML = `Condition: ${condition}`;
+      breeze.innerHTML = `Wind: ${wind} mph`;
+      sunup.innerHTML = `Sunrise: ${sunrise}`;
+      sundown.innerHTML = `Sunset: ${sunset}`;
+    }
+  );
   cityInput.value = "";
   stateInput.value = "";
 });

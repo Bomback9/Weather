@@ -174,11 +174,7 @@ body {
   font-size: 100px;
 }
 
-.location {
+.place {
   font-size: 40px; /* Larger font size for the location */
   text-align: left; /* Align text left */
-}
-
-.date {
-  font-size: 18px; /* Smaller font size for the date */
 }
