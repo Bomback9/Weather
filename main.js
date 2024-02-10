@@ -1,12 +1,10 @@
 const apiKey = "a335ea562508ddcaaec55b37898a39bd";
-const city = "Torrance";
-const state = "CA";
 const timeDif = 28800;
 
-const fetchWeatherData = async () => {
+const fetchWeatherData = async (city, state, apiKey) => {
   try {
     const geoRes = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=Torrance,California,US&limit=5&appid=a335ea562508ddcaaec55b37898a39bd`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=5&appid=${apiKey}`
     );
     const geoData = await geoRes.json();
     const lat = geoData[0].lat;
@@ -27,19 +25,24 @@ const fetchWeatherData = async () => {
     const sunrise = convertTime(sunriseUtc, timeZoneDif);
     const sunset = convertTime(sunsetUtc, timeZoneDif);
 
+    console.log(`tempature: ${temp}°F`);
+    console.log(`wind: ${wind} MPH`);
+    console.log(`condition: ${condition}`);
+    console.log(`sunrise: ${sunrise}`);
+    console.log(`sunset: ${sunset}`);
     return { temp, wind, condition, sunrise, sunset };
   } catch (e) {
     console.log("there has been an error ", e);
   }
 };
 
-fetchWeatherData().then(({ temp, wind, condition, sunrise, sunset }) => {
-  console.log(`tempature: ${temp}°F`);
-  console.log(`wind: ${wind} MPH`);
-  console.log(`condition: ${condition}`);
-  console.log(`sunrise: ${sunrise}`);
-  console.log(`sunset: ${sunset}`);
-});
+// fetchWeatherData().then(({ temp, wind, condition, sunrise, sunset }) => {
+//   console.log(`tempature: ${temp}°F`);
+//   console.log(`wind: ${wind} MPH`);
+//   console.log(`condition: ${condition}`);
+//   console.log(`sunrise: ${sunrise}`);
+//   console.log(`sunset: ${sunset}`);
+// });
 
 // UTC time in seconds
 const convertTime = (t, tD) => {
@@ -65,3 +68,23 @@ const convertTime = (t, tD) => {
   // Output the formatted time
   return formattedTime;
 };
+
+const form = document.querySelector(".location");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent the default form submission behavior
+
+  const cityInput = document.querySelector(".city");
+  const stateInput = document.querySelector(".state");
+
+  const city = cityInput.value;
+  const state = stateInput.value;
+
+  fetchWeatherData(city, state, apiKey);
+  // console.log("City:", city);
+  // console.log("State:", state);
+
+  // Clear the form fields
+  cityInput.value = "";
+  stateInput.value = "";
+});
