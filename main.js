@@ -1,5 +1,5 @@
 //api Key with Current Date variable
-const apiKey = "a335ea562508ddcaaec55b37898a39bd";
+const apiKey = "/*INSERT API KEY HERE */";
 const currentDate = new Date().toDateString();
 
 //Funciton to fetch the API Data and return the needed Information
@@ -10,12 +10,12 @@ const fetchWeatherData = async (city, state, apiKey) => {
       `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=5&appid=${apiKey}`
     );
     const geoData = await geoRes.json();
-    const lat = geoData[0].lat.toFixed(2);
-    const long = geoData[0].lon.toFixed(2);
+    const latitutde = geoData[0].lat.toFixed(2);
+    const longitude = geoData[0].lon.toFixed(2);
 
     //fetching the WeatherAPI
     const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&tz=-08:00&units=Imperial&appid=a335ea562508ddcaaec55b37898a39bd`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitutde}&lon=${longitude}&tz=-08:00&units=Imperial&appid=a335ea562508ddcaaec55b37898a39bd`
     );
     const weatherData = await weatherResponse.json();
     const iconCode = weatherData.weather[0].icon;
