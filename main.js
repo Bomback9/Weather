@@ -1,5 +1,5 @@
 //api Key with Current Date variable
-const apiKey = "/*INSERT API KEY HERE */";
+const apiKey = "/*INSERT APIKEY HERE*/";
 const currentDate = new Date().toDateString();
 
 //Funciton to fetch the API Data and return the needed Information
@@ -15,7 +15,7 @@ const fetchWeatherData = async (city, state, apiKey) => {
 
     //fetching the WeatherAPI
     const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitutde}&lon=${longitude}&tz=-08:00&units=Imperial&appid=a335ea562508ddcaaec55b37898a39bd`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitutde}&lon=${longitude}&tz=-08:00&units=Imperial&appid=${apiKey}`
     );
     const weatherData = await weatherResponse.json();
     const iconCode = weatherData.weather[0].icon;
