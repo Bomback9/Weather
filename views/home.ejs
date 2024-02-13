@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
+  </head>
+  <body>
+    <div class="input">
+      <form class="location" action="">
+        <input class="city" type="text" placeholder="City" required />
+        <input class="state" type="text" placeholder="State" required />
+        <input type="submit" hidden />
+      </form>
+    </div>
+    <div class="WeatherDetails">
+      <h1>Weather Details</h1>
+      <ul>
+        <li class="condition"></li>
+        <li class="wind"></li>
+        <li class="sunrise"></li>
+        <li class="sunset"></li>
+      </ul>
+    </div>
+    <div class="weatherInfo">
+      <ul>
+        <li class="temperature"></li>
+        <li class="place"></li>
+        <li class="icon"></li>
+      </ul>
+    </div>
+    <script src="/main.js"></script>
+  </body>
+</html>
