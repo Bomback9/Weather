@@ -10,17 +10,17 @@
     <div class="WeatherDetails">
       <h1>Weather Details</h1>
       <ul>
-        <li class="condition"></li>
-        <li class="wind"></li>
-        <li class="sunrise"></li>
-        <li class="sunset"></li>
+        <li class="condition">Condition: <%=weatherData.condition %></li>
+        <li class="wind"><span>Wind:</span> <%=weatherData.wind %> MPH</li>
+        <li class="sunrise"><span>Sunrise:</span> <%=weatherData.sunrise %></li>
+        <li class="sunset"><span>Sunset:</span> <%=weatherData.sunset %></li>
       </ul>
     </div>
     <div class="weatherInfo">
       <ul>
-        <li class="temperature"></li>
-        <li class="place"></li>
-        <li class="icon"></li>
+        <li class="temperature"><%= weatherData.temp%>°</li>
+        <li class="place"><%= weatherData.loc%></li>
+        <li class="icon"><img src="<%= weatherData.icon%>" /></li>
       </ul>
     </div>
   </body>
