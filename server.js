@@ -4,7 +4,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 
-const apiKey = "3bebfc7bb440170524c4c0f639716c2a";
+const apiKey = "/*Please Enter API key here*/";
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
@@ -27,9 +27,6 @@ app.get("/results", (req, res) => {
 
 app.post("/results", async (req, res) => {
   const { city, state } = req.body;
-  console.log(city);
-  console.log(state);
-  console.log(apiKey);
   try {
     const weatherData = await fetchWeatherData(city, state, apiKey);
     res.render("results", { weatherData }); // Pass weatherData to the results template
