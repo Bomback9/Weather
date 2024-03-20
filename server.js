@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 
 const apiKey = "/*Please Enter API key here*/";
 
@@ -21,8 +22,38 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/", (req, res) => {
   res.render("home");
 });
+
+app.get("/search", (req, res) => {
+  res.render("search");
+});
 app.get("/results", (req, res) => {
   res.render("results");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/forgot", (req, res) => {
+  res.render("forgot");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const hash = await bcrypt.hash(password, 12);
+});
+
+app.post("/signup", async (req, res) => {
+  const { email, password } = req.body;
+  const hash = await bcrypt.hash(password, 12);
+});
+
+app.get("/learn", async (req, res) => {
+  res.render("learn");
 });
 
 app.post("/results", async (req, res) => {

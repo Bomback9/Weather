@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather</title>
-    <link rel="stylesheet" href="/style.css" />
-    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
+    <link rel="stylesheet" href="/home.css" />
+    <title>Home</title>
+    <script src="https://kit.fontawesome.com/4b475a18b0.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="input">
-      <form class="location" action="/results" method="post">
-        <input
-          class="city"
-          type="text"
-          placeholder="city"
-          name="city"
-          required
-        />
-        <input class="state" type="text" placeholder="State" name="state" />
-        <input type="submit" hidden />
-      </form>
+    <nav class="navbar">
+      <a href="/" class="nav-link"><i class="fa-solid fa-cloud"></i></a>
+      <a href="/login" class="nav-link"><i class="fa-regular fa-user"></i></a>
+    </nav>
+    <div class="video-background">
+      <video
+        playsinline="playsinline"
+        autoplay="autoplay"
+        muted="muted"
+        loop="loop"
+      >
+        <source src="/assets/background.mp4" type="video/mp4" />
+      </video>
     </div>
-    <!-- <script src="/main.js"></script> -->
+
+    <div class="content">
+      <div class="maintext">
+        <h1>Open Weather GUI</h1>
+        <h2>
+          Click <a href="/learn">Here</a> to learn how to use this Website
+        </h3>
+      </div>
+    </div>
   </body>
 </html>
