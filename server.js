@@ -1,70 +1,22 @@
-const { render } = require("ejs");
 const express = require("express");
 const app = express();
-const path = require("path");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-
-const apiKey = "59c1e51497bebf4bb31ee4f5534e25a2";
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(
-  bodyParser.urlencoded({
-    // to support URL-encoded bodies
-    extended: true,
-  })
-);
+app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-app.get("/", (req, res) => {
-  res.render("home");
-});
-
-app.get("/search", (req, res) => {
-  res.render("search");
-});
 app.get("/results", (req, res) => {
-  res.render("results");
-});
+  const weatherData = {
+    temp: 59,
+    wind: 3,
+    condition: "Clouds",
+    sunrise: "06:12 AM",
+    sunset: "07:30 PM",
+    loc: "Torrance",
+    icon: "https://openweathermap.org/img/wn/04n@2x.png",
+  };
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.get("/forgot", (req, res) => {
-  res.render("forgot");
-});
-
-app.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const hash = await bcrypt.hash(password, 12);
-});
-
-app.post("/signup", async (req, res) => {
-  const { email, password } = req.body;
-  const hash = await bcrypt.hash(password, 12);
-});
-
-app.get("/learn", async (req, res) => {
-  res.render("learn");
-});
-
-app.post("/results", async (req, res) => {
-  const { city, state } = req.body;
-  try {
-    const weatherData = await fetchWeatherData(city, state, apiKey);
-    res.render("results", { weatherData }); // Pass weatherData to the results template
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
-    res.status(500).send("Error fetching weather data");
-  }
+  res.json(weatherData); // Return weather data as JSON
 });
 
 app.listen(3000, () => {
