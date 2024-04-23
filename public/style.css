@@ -183,3 +183,12 @@ body {
   font-size: 40px; /* Larger font size for the location */
   text-align: left; /* Align text left */
 }
+.back {
+  text-align: center;
+  background-color: red;
+  text-decoration: none;
+  border: solid 1px black;
+}
+.back a {
+  text-decoration: none;
+}

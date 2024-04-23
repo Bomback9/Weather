@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 
-const apiKey = "/*Please Enter API key here*/";
+const apiKey = "59c1e51497bebf4bb31ee4f5534e25a2";
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
